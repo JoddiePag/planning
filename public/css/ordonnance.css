@@ -1,0 +1,147 @@
+.ordonnances{
+   padding: 20px;
+    /* border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    /* max-width: 600px; */
+    margin: 20px auto;
+
+}
+.parametre-title {
+    color: #2E86AB;
+    /* text-align: center; */
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+  /*  */
+  body {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Styles spécifiques pour l'impression */
+    @media print {
+        /* Cacher tous les éléments sauf le contenu de l'ordonnance */
+        body * {
+            visibility: hidden;
+        }
+
+        /* Afficher uniquement le contenu de l'ordonnance */
+        .ordonnances, .ordonnances * {
+            visibility: visible;
+        }
+
+        /* Positionner l'ordonnance en haut à gauche de la page et ajuster les marges */
+        .ordonnances {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 20mm; /* Marges pour l'impression, simule une page A4 */
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #fff !important; /* Assurer un fond blanc */
+        }
+
+        /* Réinitialiser les styles des conteneurs principaux pour l'impression */
+        .homes, .body {
+            background-color: #fff !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            min-height: auto !important;
+        }
+
+        /* Supprimer les styles des inputs et textarea pour qu'ils apparaissent comme du texte simple */
+        input[type="text"], input[type="number"], textarea {
+            border: none !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: auto !important; /* Permet aux inputs de prendre juste la largeur de leur contenu */
+            display: inline-block; /* Pour que le texte "Nom et Prénoms :" soit sur la même ligne */
+            vertical-align: baseline; /* Aligner le texte des inputs avec le texte des labels */
+            font-size: 1rem; /* Assurer une taille de police lisible */
+            color: #000; /* Forcer le texte en noir */
+        }
+
+        /* Style spécifique pour les noms de médicaments */
+        input[name="medicationName[]"] {
+            font-weight: bold;
+            margin-bottom: 8px !important;
+            display: block; /* Chaque nom de médicament sur une nouvelle ligne */
+            width: 100% !important;
+        }
+
+        /* Cacher tous les labels par défaut pour l'impression */
+        label {
+            display: none !important;
+        }
+
+        /* Afficher les textes des labels pour les informations patient et médecin comme du texte direct */
+        .patient-info-label, .doctor-info-label {
+            display: inline !important; /* Afficher ces labels comme du texte */
+            font-weight: bold;
+            color: #000;
+            margin-right: 5px;
+        }
+
+
+        /* Style pour les informations médecin/date (pour aligner la date à droite) */
+        .doctor-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            width: 100%; /* Assurer qu'il prend toute la largeur */
+        }
+
+        /* Style pour les informations patient (pour aligner nom et âge) */
+        .patient-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        /* Style des items de médicament */
+        .medication-item {
+            page-break-inside: avoid; /* Empêche la coupure d'un élément de médicament */
+            margin-bottom: 15px; /* Réduire l'espace entre les médicaments */
+            border: none !important;
+            background: white !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* Ajuster le grid des dosages pour qu'ils soient compacts */
+        .medication-item .grid {
+            display: flex; /* Utiliser flexbox pour les dosages */
+            gap: 10px; /* Réduire l'espace entre Matin, Midi, Soir */
+            margin-left: 20px; /* Indenter les dosages */
+        }
+        .medication-item .grid > div {
+            flex: 1; /* Distribuer l'espace équitablement */
+        }
+
+        /* Optimiser l'espace pour les qualifications du médecin */
+        pre {
+            white-space: pre-wrap; /* Conserver les retours à la ligne */
+            font-size: 0.9rem; /* Taille de police légèrement plus petite */
+            color: #000;
+        }
+
+        /* Ligne de signature plus nette */
+        .signature-area {
+            border-bottom: 1px solid #000 !important;
+        }
+
+        /* Cacher spécifiquement les éléments d'interface */
+        .no-print, #ordonnanceSelect, .print-btn, #addMedicationBtn {
+            display: none !important;
+        }
+
+        /* Forcer la couleur du texte en noir pour tous les éléments imprimés */
+        * {
+            color: #000 !important;
+        }
+    }

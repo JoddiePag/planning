@@ -1,0 +1,295 @@
+.planning-table {
+  font-family: Arial, sans-serif;
+  padding: 0px;
+ font-size: 0.8rem;
+  /* background-color: red; */
+  margin-top: -45px;
+  
+}
+
+.homes {
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  background-color: white;
+  border-radius: 10px;
+  height: 700px; 
+  overflow-y: auto; 
+}
+
+.planning-header {
+  position: sticky;
+  top: 0;
+  background: white; 
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+}
+
+
+.planning-row {
+  display: flex;
+  /* min-height: 30px !important; */
+}
+
+.time-cell {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+  background: #f0f0f0;
+  font-weight: bold;
+   padding: 2px 4px !important; /* Réduction padding */
+  /* font-size: 0.7rem !important; */
+}
+
+.day-cell,
+.rdv-cell {
+  flex: 1;
+  border: 1px solid #ccc;
+  /* min-height: 60px; */
+  position: relative;
+  /* padding: 4px; */
+    min-height: 40px !important; 
+  padding: 1px !important; 
+}
+
+.rdv-block {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border-radius: 6px;
+  color: white;
+  padding: 6px;
+  font-size: 0.8rem;
+  /* font-size: 0.65rem !important; */
+}
+
+.rdv-block.consultation {
+  background-color: #34a853;
+}
+.rdv-block.plombage {
+  background-color: greenyellow;
+}
+.rdv-block.detartrage {
+  background-color: orangered;
+}
+
+.rdv-block.extraction {
+  /* background-color: #ea4335; */
+  background-color: #f40086;
+}
+
+.rdv-block.odf {
+  background-color: gray;
+}
+
+/* .rdv-block.prothese {
+  background-color: #9e9e9e;
+  color: white;
+} */
+
+.rdv-block.prothèse,
+.rdv-block.prothese {
+  background-color: red;
+  color: white;
+}
+.fc-event.detartrage {
+        background-color: #fbbc05; /* Jaune */
+        border-color: #fbbc05;
+        color: #333; /* Texte sombre pour le jaune */
+    }
+    .fc-event.consultation {
+        background-color: #4285f4; /* Bleu */
+        border-color: #4285f4;
+        color: white;
+    }
+    .fc-event.extraction, /* Pour "extraction-simple" ou juste "extraction" */
+    .fc-event.extraction-simple {
+        background-color: #ea4335; /* Rouge */
+        border-color: #ea4335;
+        color: white;
+    }
+    .fc-event.prothese {
+        background-color: #34a853; /* Vert */
+        border-color: #34a853;
+        color: white;
+    }
+    .fc-event.autres-soins {
+        background-color: #673ab7; /* Violet */
+        border-color: #673ab7;
+        color: white;
+    }
+
+/* couleur table soins */
+.rdv-block-table {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+  /* background-color: #dc3545; */
+}
+.soin-consultation {
+    background-color: #4285f4; /* Bleu Google */
+}
+
+/* Extraction */
+.soin-extraction {
+    background-color: #ea4335; /* Rouge Google */
+}
+
+/* Détartrage */
+.soin-detartrage {
+    background-color: #fbbc05; /* Jaune Google */
+}
+.soin-odf {
+    background-color: grey; /* Jaune Google */
+}
+.soin-prothese {
+    background-color: #34a853; /* Jaune Google */
+}
+/* .rv.consultation {
+  background-color: #34a853;
+} */
+/* .rdv-block-table.plombage {
+  background-color: greenyellow;
+} */
+.rv.detartrage {
+  background-color: orangered;
+}
+/* .rdv-block-table.extraction {
+  background-color: #f40086;
+}
+.rdv-block-table.odf {
+  background-color: grey;
+}
+.rdv-block-table.prothese,
+.rdv-block-table.prothèse {
+  background-color: red;
+  color: white;
+} */
+/* .statut-manque {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+  background-color: #dc3545;
+} */
+
+.statut-fini {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+  background-color: #28a745;
+}
+
+.filtre {
+  display: flex;
+          padding: 20px;
+         
+
+
+}
+
+.form_rdv {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.rdv-filtres {
+  padding: 20px;
+  margin-top: -40px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.5rem; right: 0.75rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+/* calendrier */
+.fc-calendar-container {
+    margin-top: 10px;
+    padding: 5px;
+    height: 80vh; /* Ajustez selon vos besoins */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header fixe */
+.fc-header-toolbar {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+    padding: 10px 0;
+    margin-bottom: 5px !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Grille compacte */
+.fc-daygrid-day-frame {
+    min-height: 30px !important;
+    padding: 1px !important;
+}
+
+.fc-daygrid-day-events {
+    margin: 1px 0 !important;
+}
+
+.fc-event {
+    height: 24px !important;
+    margin: 0 0 1px 0 !important;
+    padding: 1px 2px !important;
+    font-size: 0.7rem !important;
+}
+
+.fc-event-title {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.2 !important;
+}
+
+/* Vue liste compacte */
+.fc-list-table td {
+    padding: 3px 5px !important;
+}
+
+.fc-list-event {
+    font-size: 0.8rem !important;
+}
+/* css calendrier */

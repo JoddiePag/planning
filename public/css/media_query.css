@@ -1,0 +1,132 @@
+/* Par défaut (grand écran) */
+.BouttonMenu {
+    display: inline-block;
+}
+
+.BouttonMenu_Mobile {
+    display: none;
+}
+
+/* Pour les petits écrans */
+@media screen and (max-width: 1024px) {
+    .BouttonMenu {
+        display: none;
+    }
+
+    .BouttonMenu_Mobile {
+        display: inline-block;
+    }
+
+    .navbar-vertical {
+        position: fixed;
+        left: -100%;
+        width: var(--sidebar-width);
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
+
+    .navbar-vertical.active {
+        left: 0;
+    }
+
+    .navbartop,
+    .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    /* .main-content{
+        background-color: red;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;  
+        max-width: 100% !important; 
+    } */
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
+
+    .overlay.visible {
+        display: block;
+    }
+    /* accueil */
+   
+    .stats-cards {
+        flex-direction: column;
+      }
+    
+      .stat-card {
+        flex: 1 1 100%;
+      }
+    
+      .dashboard-header h1 {
+        font-size: 22px;
+        
+      }
+    
+      .dashboard-section h3 {
+        font-size: 16px;
+      }
+    
+      .stat-number {
+        font-size: 20px;
+        
+      }
+    
+      .stat-card p {
+        font-size: 14px;
+      }
+    
+      .action-btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    
+      .quick-actions {
+        display: flex;
+        flex-direction: column;
+      }
+      .dashboard-content {
+        flex-direction: column;
+      }
+      /* ajout patient */
+      .three-column-layout {
+        flex-direction: column; 
+      }
+    
+      .patient-info-column {
+        width: 100%; 
+      }
+      /* liste patient */
+      .top-table {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    
+      input.search-bar,
+      .top-table-Supprimer {
+        width: calc(100% - 50px);
+        margin: 5px 25px;
+      }
+    
+}
+
+
+@media screen and (min-width: 1025px) {
+    .navbar-vertical {
+        left: 0 !important;
+        position: relative;
+    }
+
+    .overlay {
+        display: none !important;
+    }
+}

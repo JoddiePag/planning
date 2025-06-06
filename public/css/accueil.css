@@ -1,0 +1,322 @@
+/* Styles de base */
+.form-containerDashboard{
+    /* margin: 20px; */
+    /* padding: 20px; */
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    /* height: 500px; */
+    background-color: white;
+    border-radius: 10px;
+    /* overflow-y: auto; */
+
+}
+.dashboard-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #333;
+  }
+  /* .welcome-banner {
+    background-image: url("../../assets/images/sary.jpg");
+    background-size: cover; 
+    background-position: center;
+    height: 420px; 
+    border-radius: 10px;
+    top: 25px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin: 0px 20px;
+    background-repeat: no-repeat;
+  } */
+  
+  
+  .dashboard-header {
+    margin-bottom: 30px;
+  }
+  
+  .dashboard-header h1 {
+    color: #2E86AB;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  
+  /* Cartes de statistiques */
+ /* Cartes de statistiques */
+.stats-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+  
+  .stat-card {
+    background-color: #FAFAFA;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour l'effet de survol */
+  }
+  
+  .stat-card:hover {
+    background-color: #2E86AB;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .stat-card:hover h2,
+  .stat-card:hover p,
+  .stat-card:hover .iconeDashboard {
+    color: white;
+  }
+  
+  .stat-card h2 {
+    font-size: 32px;
+    color: #2E86AB;
+    margin: 0 0 10px 0;
+  }
+  
+  .stat-card p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+  }
+  
+  .stat-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2E86AB;
+    word-break: break-word;
+    max-width: 100%;
+  }
+  .stat-card:hover .stat-number {
+    color: white;
+  }
+  
+  /* Contenu principal */
+  .dashboard-content {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .dashboard-column {
+    flex: 1;
+  }
+  
+  .dashboard-section {
+    background-color: #FAFAFA;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-section h3 {
+    color: #2E86AB;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  /* Liste des mois */
+  .month-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .month-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .month-list li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Mises à jour */
+  .updates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .update-item {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .update-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  .update-item p {
+    margin: 0 0 5px 0;
+    font-weight: 500;
+  }
+  
+  .update-time {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  /* Actions rapides */
+  .quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .action-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .action-btn:hover {
+    background-color: #2E86AB;
+    color: white;
+    border-color: #2E86AB;
+  }
+  .iconeDashboard {
+    font-size: 28px;
+    color: #2E86AB;
+    margin-bottom: 10px;
+  }
+  
+  /* Style des icônes dans les boutons */
+  .icon-btn {
+    margin-right: 8px;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+  .action-btn a {
+    text-decoration: none;
+    color: black;
+    display: block; /* Pour que l'ancre occupe tout l'espace du bouton */
+    width: 100%;
+    height: 100%;
+    line-height: 1.4; /* Ajustez selon la hauteur du contenu du bouton */
+    transition: color 0.3s ease; /* Ajoutez une transition pour la couleur du texte */
+}
+
+.action-btn:hover a {
+    color: white; /* Couleur du texte (du lien) au survol du bouton */
+}
+
+
+/* carousel */
+#carouselExampleCaptions {
+    position: relative;
+    /* width: calc(100% - 40px); */
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    /* margin: 25px 20px; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* margin-top: 20px; */
+  }
+  
+  #carouselExampleCaptions .carousel-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+  }
+  
+  .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    border-radius: 10px;
+  }
+  
+  #carouselExampleCaptions .carousel-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    z-index: 2;
+    color: #fff;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  
+  #carouselExampleCaptions .carousel-caption h5 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #fff;
+  }
+  
+  #carouselExampleCaptions .carousel-caption p {
+    font-size: 1rem;
+    color: #eee;
+    margin: 5px 0 0;
+  }
+  
+  
+  /* Contrôles */
+  #carouselExampleCaptions .carousel-control-prev,
+  #carouselExampleCaptions .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  
+  #carouselExampleCaptions .carousel-control-prev:hover,
+  #carouselExampleCaptions .carousel-control-next:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  #carouselExampleCaptions .carousel-control-prev-icon,
+  #carouselExampleCaptions .carousel-control-next-icon {
+    filter: invert(1);
+  }
+  
+  /* Indicateurs */
+  #carouselExampleCaptions .carousel-indicators [data-bs-target] {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  #carouselExampleCaptions .carousel-indicators .active {
+    background-color: white;
+    transform: scale(1.2);
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  

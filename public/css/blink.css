@@ -1,0 +1,13 @@
+
+@keyframes blink-animation {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; } 
+}
+
+.blink-manque {
+    animation: blink-animation 1.5s infinite alternate; 
+}
+ .fini-event {
+        border: 3px solid #28a745 !important;
+        box-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
+    }

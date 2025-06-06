@@ -1,0 +1,38 @@
+.dropDownProfile {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    min-width: 150px;
+    z-index: 2000;
+  }
+  
+  .dropdo-menu {
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  
+  .dropdo-menu li {
+    border-bottom: 1px solid #eee;
+  }
+  
+  .dropdo-menu li:last-child {
+    border-bottom: none;
+  }
+  
+  .dropdown-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .dropdown-link .icone {
+    margin-right: 8px;
+  }
+  
+  .dropdown-link:hover {
+    background: #f5f5f5;
+  }
+  

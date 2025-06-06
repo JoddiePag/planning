@@ -1,0 +1,135 @@
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .form-container {
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    /* height: 500px; */
+    background-color: white;
+    border-radius: 10px;
+    overflow-y: auto;
+  }
+  /* .form-patient{ */
+    /* margin-left: 45px; */
+    
+  /* } */
+  .titleNouveau{
+    font-size: 20px;
+    font-weight: bold;
+    /* color: #00aeef; */
+    color: #2E86AB;
+  }
+  /* boutton enregistrer */
+  .form-footer {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .center-btn {
+    padding: 10px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    width: 80%;
+  }
+  /* .center-btn span {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+  } */
+  .form-row label{
+    font-weight: bold;
+  }
+
+
+  /* Layout trois colonnes */
+.three-column-layout {
+  display: flex;
+  /* gap: 20px;
+  margin-top: 20px; */
+}
+
+.patient-info-column,
+.devis-column,
+.ordonnance-column {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.column-examination{
+  width: 100%;
+  /* background-color: red; */
+}
+.form-containerNouveau-Patient{
+  /* margin: 20px;
+  padding: 20px; */
+  /* box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75); */
+  /* height: 500px; */
+  /* background-color: white; */
+  border-radius: 10px;
+  overflow-y: auto;
+}
+/*  */
+/* .page-ajout-patient .three-column-layout > .patient-info-column:nth-child(3) {
+    display: none; 
+}
+.page-ajout-patient .three-column-layout > .patient-info-column:nth-child(2) {
+    flex: 1; 
+    max-width: 80%; 
+} */
+/* .page-ajout-patient .three-column-layout > .patient-info-column:nth-child(1) {
+    flex: 1; 
+
+      max-width: 30%; 
+
+} */
+.three-column-layout > .patient-info-column:nth-child(1) {
+  flex: 0 0 20%;
+}
+
+.three-column-layout > .patient-info-column:nth-child(2) {
+  flex: 0 0 60%;
+}
+
+.three-column-layout > .patient-info-column:nth-child(3) {
+  flex: 0 0 20%;
+}
+/* boutton-menu-Examination */
+.boutton-menu-Examination{
+  display: flex;
+}
+/* ordonnance */
+@media print {
+    /* On cache tout par défaut */
+    body * {
+        visibility: hidden;
+    }
+
+    /* On affiche juste l'ordonnance */
+    #ordonnance-section, #ordonnance-section * {
+        visibility: visible;
+    }
+
+    #ordonnance-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    /* On cache le textarea et le bouton uniquement à l'impression */
+    #ordonnance, .print-btn {
+        display: none !important;
+    }
+
+    /* On montre le texte propre à la place */
+    #ordonnanceText {
+        display: block !important;
+    }
+}
+
