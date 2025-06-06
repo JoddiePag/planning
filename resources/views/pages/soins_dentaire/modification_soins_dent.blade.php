@@ -20,7 +20,7 @@
      .image-container {
         position: relative;
     }
-    
+
     .prothese-root-overlay {
         z-index: 9;
     }
@@ -43,10 +43,55 @@
         z-index: 9;
         border-radius: 3px;
         box-sizing: border-box;
-    } 
+    }
 </style>
-
+<script>
+   var dataList =  @json($soinsList);
+   localStorage.clear();
+   localStorage.setItem("soinsList2",JSON.stringify(dataList));
+</script>
     </style>
+    <div class="recapitulatif_soins_modifier">
+    <p>Positions des soins (soinsList)</p>
+
+    @if(empty($soinsList))
+        <p class="alert alert-warning">Aucun soin enregistré avec position.</p>
+    @else
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Dent</th>
+                    <th>Traitement</th>
+                    <th>Type de dent</th>
+                    <th>Prix</th>
+                    <th>Reçu</th>
+                    <th>Reste</th>
+                    <th>Position X1</th>
+                    <th>Position Y1</th>
+                    <th>Position X2</th>
+                    <th>Position Y2</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($soinsList as $soin)
+                    <tr>
+                        <td>{{ $soin['dent'] }}</td>
+                        <td>{{ $soin['traitement'] }}</td>
+                        <td>{{ $soin['type_dent'] }}</td>
+                        <td>{{ number_format($soin['prix'], 0, '', ' ') }} Ar</td>
+                        <td>{{ number_format($soin['recu'], 0, '', ' ') }} Ar</td>
+                        <td>{{ number_format($soin['reste'], 0, '', ' ') }} Ar</td>
+                        <td>{{ $soin['x1'] }}</td>
+                        <td>{{ $soin['y1'] }}</td>
+                        <td>{{ $soin['x2'] }}</td>
+                        <td>{{ $soin['y2'] }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+</div>
+
     <div class="image-container">
         <img src="{{ asset('images/dent_modifier1.png') }}" usemap="#dentMap" alt="Dentition Humaine" id="dentImage">
         <div class="highlight" id="dentHighlight"></div>
@@ -156,7 +201,7 @@
                     <td>
                         <input type="number" name="existing_soins[{{ $soin->id }}][nouveau_paiement]" class="editable nouveau-paiement" value="0" min="0">
                     </td>
-                   
+
                     <td>
                         <input type="number" name="existing_soins[{{ $soin->id }}][reste]" class="editable reste" value="{{ $soin->reste }}" readonly>
                     </td>
@@ -194,18 +239,18 @@
 
             // Calculer le nouveau total reçu
             const totalRecu = ancienRecu + nouveauPaiement;
-            
+
             // Mettre à jour les champs
             recuInput.value = totalRecu;
             ancienRecuInput.value = totalRecu; // Mettre à jour pour le prochain paiement
-            
+
             // Calculer le nouveau reste
             const reste = Math.max(0, prix - totalRecu);
             resteInput.value = reste;
-            
+
             // Réinitialiser le champ nouveau paiement
             nouveauPaiementInput.value = 0;
-            
+
             // Afficher un message de confirmation
             alert(`Paiement de ${nouveauPaiement} Ar ajouté avec succès!`);
         });
@@ -222,12 +267,12 @@
             const prix = parseFloat(prixInput.value) || 0;
             const recu = parseFloat(recuInput.value) || 0;
             const reste = Math.max(0, prix - recu);
-            
+
             resteInput.value = reste;
         });
     });
 
-    // 
+    //
     // Styles pour les overlays
     window.soinsList = @json($soinsList ?? []);
     const areaOriginalCoords = {};
@@ -236,7 +281,6 @@
     const ZOOM_LEVEL = 1.5;
     let isZoomed = false;
     let currentZoom = 1;
-
     // Initialisation
     function initializeScripts() {
         // Sauvegarde des coordonnées originales
@@ -246,12 +290,12 @@
 
         // Restauration des overlays
         restoreMissingTeeth();
-        
+
         // Gestion des événements
         document.addEventListener('click', handleGlobalClick);
         document.addEventListener('keydown', handleGlobalKeydown);
         document.addEventListener('click', handleRemoveTreatment);
-        
+
         // Redimensionnement
         resizeMap();
     }
@@ -327,21 +371,21 @@
     // Gestion du zoom
     function applyZoom(area) {
         if (isZoomed) return;
-        
+
         const coords = area.coords.split(',').map(Number);
         const [x1, y1, x2, y2] = coords;
         const centerX = (x1 + x2) / 2;
         const centerY = (y1 + y2) / 2;
-        
+
         currentZoom = ZOOM_LEVEL;
         isZoomed = true;
-        
+
         const dentImage = document.getElementById('dentImage');
         if (dentImage) {
             dentImage.style.transformOrigin = `${centerX}px ${centerY}px`;
             dentImage.style.transform = `scale(${ZOOM_LEVEL})`;
         }
-        
+
         updateHighlightPosition(area);
         document.getElementById('dentHighlight').style.display = 'block';
         updateAllOverlays();
@@ -370,7 +414,7 @@
         if (isZoomed) {
             const dentImage = document.getElementById('dentImage');
             const [originX, originY] = dentImage.style.transformOrigin.split(' ').map(parseFloat);
-            
+
             const newX1 = originX - (originX - soin.x1) * currentZoom;
             const newY1 = originY - (originY - soin.y1) * currentZoom;
             const newX2 = originX + (soin.x2 - originX) * currentZoom;
@@ -385,7 +429,7 @@
                 } else {
                     rootY = newY1;
                 }
-                
+
                 overlay.style.left = `${newX1}px`;
                 overlay.style.top = `${rootY}px`;
                 overlay.style.width = `${newX2 - newX1}px`;
@@ -406,7 +450,7 @@
                 } else {
                     rootY = soin.y1;
                 }
-                
+
                 overlay.style.left = `${soin.x1}px`;
                 overlay.style.top = `${rootY}px`;
                 overlay.style.width = `${soin.x2 - soin.x1}px`;
@@ -429,7 +473,7 @@
     // Gestion du redimensionnement
     window.addEventListener('resize', function() {
         updateAllOverlays();
-   
-    
+
+
 });
 </script>

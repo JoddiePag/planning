@@ -14,7 +14,7 @@
                     <input type="hidden" id="soinsInput" name="soins" value="">
                     <input type="hidden" id="total_soins" name="total_soins" value="0">
                     <input type="hidden" id="type_dent" name="type_dent" value="{{ $patients->type_dent ?? 'Dent Permanent' }}">
-                    
+
                     <div class="form-containerNouveau-Patient">
                         <div class="three-column-layout">
                             <!-- Colonne 1: Infos patient -->
@@ -25,7 +25,7 @@
                                     <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom " value="{{ $patients->nom }}" required>
                                 </div>
 
-                                
+
                                 <div class="form-group mb-4">
                                         <label for="prenom">Prénoms</label>
                                         <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" value="{{ $patients->prenom }}" required>
@@ -64,7 +64,7 @@
                                         <label for="traitements">Traitements en cours</label>
                                         <textarea class="form-control" id="traitements" name="traitements" placeholder="Traitements en cours" rows="3" style="height: 150px; resize: none;">{{ $patients->traitements }}</textarea>
                                     </div>
- 
+
                                                                             @php
                                             $rdv = $patients->rendezVous->first();
                                         @endphp
@@ -96,7 +96,7 @@
                                         </div>
 
                      </div>
-                            
+
                             <!-- Colonne 2: Examinations -->
                             <div class="patient-info-column">
                                 <div class="column-examination">
@@ -127,7 +127,7 @@
                                 @include('pages.ordonnance.historique_ordonnance')
                             </div>
                         </div>
-                        
+
                         <div class="form-footer mt-4">
                             <button type="button" id="enregistrerEtPlanifier" class="btn btn-primary">
                                 <span>Enregistrer et planifier RDV</span>
@@ -137,7 +137,7 @@
                             </button>
                         </div>
                 </form>
-                
+
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
@@ -156,21 +156,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // 1. Calcul de l'âge
      const birthDateInput = document.getElementById('date_naissance');
         const ageInput = document.getElementById('age');
-        
+
         if (birthDateInput && ageInput) {
             birthDateInput.addEventListener('change', function() {
                 if (this.value) {
                     const birthDate = new Date(this.value);
                     const today = new Date();
-                    
+
                     let age = today.getFullYear() - birthDate.getFullYear();
                     const monthDiff = today.getMonth() - birthDate.getMonth();
-                    
-                    if (monthDiff < 0 || 
+
+                    if (monthDiff < 0 ||
                         (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
                         age--;
                     }
-                    
+
                     ageInput.value = age;
                 } else {
                     ageInput.value = '';
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         printBtn.addEventListener('click', function() {
             const textarea = document.getElementById('ordonnance');
             const ordonnanceText = document.getElementById('ordonnanceText');
-            
+
             if (textarea && ordonnanceText) {
                 ordonnanceText.textContent = textarea.value;
                 window.print();
@@ -220,12 +220,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const soinsInput = document.getElementById('soinsInput');
             const totalSoinsElement = document.getElementById('totalPrice');
             const totalSoinsInput = document.getElementById('total_soins');
-            
+
             if (soinsInput && totalSoinsElement && totalSoinsInput) {
                 // Sauvegarde des données
                 soinsInput.value = JSON.stringify(window.soinsList || []);
                 totalSoinsInput.value = parseInt(totalSoinsElement.textContent) || 0;
-                
+
                 // Nettoyage UI
                 clearLocalStorage();
                 resetUI();
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ordonnanceSelect.addEventListener('change', function() {
             const selectedValue = this.value;
             if (!selectedValue) return;
-            
+
             const routes = {
                 'cas_simple': '/cas_simple/',
                 'dent_sagesse': '/dent_sagesse/',
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'allergie_amox': '/allergie_amox/',
                 'recommendation': '/recommendation/'
             };
-            
+
             if (routes[selectedValue]) {
                 window.location.href = routes[selectedValue] + '{{$patients->id}}';
             }
@@ -260,12 +260,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (planifierBtn) {
         planifierBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const input = document.createElement('input');
             input.type = 'hidden';
             input.name = 'planifier_rdv';
             input.value = '1';
-            
+
             if (patientForm) {
                 patientForm.appendChild(input);
                 patientForm.submit();
@@ -278,14 +278,14 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.removeItem('soinsList');
         window.soinsList = [];
     }
-    
+
     function resetUI() {
         const treatmentsTableBody = document.getElementById('treatmentsTableBody');
         if (treatmentsTableBody) treatmentsTableBody.innerHTML = '';
-        
+
         const totalPriceElement = document.getElementById('totalPrice');
         if (totalPriceElement) totalPriceElement.textContent = '0';
-        
+
         document.querySelectorAll('.absent-overlay').forEach(el => el.remove());
         document.querySelectorAll('area').forEach(area => {
             area.style.pointerEvents = 'auto';

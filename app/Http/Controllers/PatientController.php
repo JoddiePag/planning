@@ -16,7 +16,7 @@ class PatientController extends Controller
 {
     public function ajout_patient()
     {
-        return view('pages.patient.ajout_patient'); 
+        return view('pages.patient.ajout_patient');
     }
     public function savePatient(Request $request)
     {
@@ -26,11 +26,11 @@ class PatientController extends Controller
             ->where('date_naissance', $request->date_naissance)
             ->where('dentiste_id', session('dentiste_id'))
             ->first();
-    
+
         if ($existingPatient) {
             return redirect()->back()->with('error', 'Ce patient existe déjà dans votre base de données.');
         }
-    
+
         //  le patient
         $patient = new Patients();
         $patient->nom = $request->nom;
@@ -43,10 +43,10 @@ class PatientController extends Controller
         $patient->ordonnance = $request->ordonnance;
         $patient->dentiste_id = session('dentiste_id');
         $patient->total_soins = $request->total_soins;
-       
+
         $patient->save();
-    
-        // le rendez-vous 
+
+        // le rendez-vous
         if ($request->prochain_rdv && $request->heure_rdv) {
             $rendezVous = new Rendez_vous();
             $rendezVous->patient_id = $patient->id;
@@ -54,7 +54,7 @@ class PatientController extends Controller
             $rendezVous->heure_fin = $request->heure_fin;
             $rendezVous->save();
         }
-    
+
         // soins
         $soins = json_decode($request->soins, true);
     if (is_array($soins)) {
@@ -81,7 +81,7 @@ class PatientController extends Controller
 
           return redirect()->route('modification_patient', ['id' => $patient->id])
             ->with('success', 'Patient et rendez-vous enregistrés avec succès.');
-        
+
     }
     // public function savePatient(Request $request)
     // {
@@ -150,7 +150,7 @@ class PatientController extends Controller
     //     // Rediriger vers la vue 'pages.ordonnance.extraction_simple' en passant les données nécessaires
     //     // return view('pages.ordonnance.extraction_simple', compact('dentiste', 'patient', 'ordonnance'))
     //     //        ->with('success', 'Patient et rendez-vous enregistrés avec succès.');
-       
+
     // }
 
 public function listes_patients(Request $request)
@@ -199,7 +199,7 @@ public function listes_patients(Request $request)
         }
     }
 
-    // affichage modification 
+    // affichage modification
 public function modification_patient($id)
 {
     $patients = Patients::with([
@@ -212,7 +212,7 @@ public function modification_patient($id)
    $ordonnances = Ordonnance::where('patient_id', $id)->get();
     // return view('pages.patient.modification_patient')->with('patients', $patients);
      return view('pages.patient.modification_patient')->with('patients', $patients)->with('ordonnances', $ordonnances);
-   
+
 }
 
 // public function modification_soins_dent($id)
@@ -230,7 +230,7 @@ public function modification_patient($id)
 //             'patient' => $patient,
 //             'soins' => $patient->soins ,
 //             //  'soinsList' => $soinsList,
-            
+
 //         ]);
 
 //     } catch (\Exception $e) {
@@ -254,7 +254,7 @@ public function modification_patient($id)
 //                 'prix' => $soin->prix,
 //                 'recu' => $soin->recu,
 //                 'reste' => $soin->reste,
-                
+
 //             ];
 //         })->toArray();
 
@@ -273,7 +273,7 @@ public function modification_soins_dent($id)
 {
     try {
         $patient = Patients::with('soins')->findOrFail($id);
-        
+
         $soinsList = $patient->soins->map(function($soin) {
             $position = json_decode($soin->overlay_position, true);
             return [
@@ -356,7 +356,7 @@ public function modification_dents_mixte($id)
 
         return view('pages.soins_dentaire.modification_dent_mixte', [
             'patient' => $patient,
-            'soins' => $patient->soins 
+            'soins' => $patient->soins
         ]);
 
     } catch (\Exception $e) {
@@ -427,15 +427,15 @@ public function modification_dents_mixte($id)
                 ]);
             }
         }
-// 
+//
 if ($request->has('planifier_rdv')) {
         // Stocker l'ID du patient dans la session pour la redirection
         session(['nouveau_patient_id' => $patient->id]);
-        
+
         // Rediriger vers la page des rendez-vous
         return redirect()->route('rendez_vous');
     }
-// 
+//
         if ($request->has('soins')) {
             $newSoinsData = json_decode($request->soins, true);
 
@@ -448,9 +448,9 @@ if ($request->has('planifier_rdv')) {
                     $newSoin->type_dent = $soin['type_dent'] ?? null;
                     $newSoin->prix = $soin['prix'] ?? 0;
                     $newSoin->recu = $soin['recu'] ?? 0;
-                    $newSoin->reste = $newSoin->prix - $newSoin->recu; 
-    //                  $soin->overlay_type = 'consultation'; 
-    // $soin->overlay_position = 0; 
+                    $newSoin->reste = $newSoin->prix - $newSoin->recu;
+    //                  $soin->overlay_type = 'consultation';
+    // $soin->overlay_position = 0;
      $newSoin->overlay_position = json_encode([
                 'x1' => $soinData['x1'] ?? 0,
                 'y1' => $soinData['y1'] ?? 0,
@@ -548,12 +548,12 @@ if ($request->has('planifier_rdv')) {
 //         }
 //     }
 
-  
-    
+
+
 //     return redirect()->route('modification_patient', ['id' => $patient->id])
 //         ->with('success', 'Patient, rendez-vous et soins mis à jour avec succès.');
 // }
-// creation rdv 
+// creation rdv
 public function creationRdv(Request $request)
 {
     // Vérifie si le patient existe déjà (même nom, prénom et dentiste)
@@ -570,15 +570,15 @@ public function creationRdv(Request $request)
     $patient = new Patients();
     $patient->nom = $request->nom;
     $patient->prenom = $request->prenom;
-    $patient->date_naissance = '2000-01-01'; 
-    $patient->age = 0; 
-    $patient->dentiste_id = session('dentiste_id'); 
+    $patient->date_naissance = '2000-01-01';
+    $patient->age = 0;
+    $patient->dentiste_id = session('dentiste_id');
     $patient->save();
 
     // 2. Créer le rendez-vous
     $rendezVous = new Rendez_vous();
     $rendezVous->patient_id = $patient->id;
-    $rendezVous->date_heure_rdv = $request->date; 
+    $rendezVous->date_heure_rdv = $request->date;
      $rendezVous->heure_fin = $request->heure_fin;
     $rendezVous->save();
 
@@ -588,11 +588,11 @@ public function creationRdv(Request $request)
     $soin->dent = 'Général';
     $soin->type_dent = 'Dent Permanente';
     $soin->traitement = $request->soin;
-    $soin->prix = 0; 
-    $soin->recu = 0; 
-    $soin->reste = 0; 
-    // $soin->overlay_type = 'consultation'; 
-    // $soin->overlay_position = 0; 
+    $soin->prix = 0;
+    $soin->recu = 0;
+    $soin->reste = 0;
+    // $soin->overlay_type = 'consultation';
+    // $soin->overlay_position = 0;
     $soin->save();
 
     return redirect()->back()->with('success', 'Patient, rendez-vous et soin enregistrés avec succès.');
@@ -604,17 +604,17 @@ public function creationRdv(Request $request)
     {
         // Récupérer le dentiste connecté
         $dentiste = Dentiste::find(session('dentiste_id'));
-        
+
         // Récupérer les informations du patient
         $patient = Patient::find($patientId);
-    
+
         return view('pages.patient.ajout_patient', compact('dentiste', 'patient'));
     }
 
 public function index(Request $request)
 {
-    
+
 }
 
-    
+
 }

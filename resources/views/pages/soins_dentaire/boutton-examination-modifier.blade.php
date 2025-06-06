@@ -39,11 +39,11 @@
 $(document).ready(function() {
     const defaultTab = $('.examination-btn').first().data('url');
     const defaultType = $('.examination-btn').first().data('type');
-    
-    loadTreatmentsFromLocalStorage(); 
-    
+
+    loadTreatmentsFromLocalStorage();
+
     loadContent(defaultTab, defaultType);
-    
+
     $(document).on('click', '.examination-btn', function(e) {
         e.preventDefault();
         const url = $(this).data('url');
@@ -58,18 +58,18 @@ function loadContent(url, typeDent) {
         $('.examination-btn').removeClass('btn-secondary').addClass('btn-primary');
         $(`.examination-btn[data-url="${url}"]`).removeClass('btn-primary').addClass('btn-secondary');
         activeDentType = typeDent;
-        
+
         setTimeout(function() {
             soinsList.forEach(soin => {
                 if (!soin.type_dent) {
                     soin.type_dent = activeDentType;
                 }
             });
-            
+
             saveTreatmentsToLocalStorage();
             initializeScripts();
             updateTreatmentsTable();
-            
+
         }, 100);
     }).fail(function() {
         console.error('Erreur lors du chargement du contenu');

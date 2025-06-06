@@ -5,7 +5,7 @@
     <title>@yield('title', 'Examination')</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="{{ asset('css/soins_dents.css') }}" rel="stylesheet">
-    
+
     <style>
         /* Styles communs */
         .boutton-menu-Examination { margin-bottom: 20px; }
@@ -44,7 +44,7 @@
         }
         .soins-table-container { margin-bottom: 30px; }
         .table-title { font-weight: bold; margin-bottom: 10px; }
-        
+
         /* Styles pour les overlays de prothèse */
         /* .prothese-overlay {
             position: absolute;
@@ -52,7 +52,7 @@
             pointer-events: none;
             z-index: 5;
         }
-        
+
         .prothese-root-overlay {
             position: absolute;
             background-color: rgba(255, 0, 0, 0.3);
@@ -60,7 +60,7 @@
             z-index: 5;
             border-radius: 0 0 5px 5px;
         } */
-        
+
         /* Styles spécifiques qui peuvent être surchargés */
         @yield('additional-styles')
     </style>
@@ -107,7 +107,7 @@ function saveTreatmentsToLocalStorage() {
 }
 
 function loadTreatmentsFromLocalStorage() {
-    const savedTreatments = localStorage.getItem('soinsList');
+    const savedTreatments = localStorage.getItem('soinsList2');
     if (savedTreatments) {
         soinsList = JSON.parse(savedTreatments);
     }
@@ -168,7 +168,7 @@ function updateTreatmentsTable() {
 
         treatmentsTableBody.appendChild(row);
         calculateRemaining(soin, row);
-        
+
     });
 
     updateTotal();
@@ -225,8 +225,8 @@ function confirmSoin(traitement, option) {
     if (!area) return;
 
     // Récupérer les coordonnées originales de la zone
-    const coords = areaOriginalCoords[selectedDent] ? 
-                  areaOriginalCoords[selectedDent].split(',') : 
+    const coords = areaOriginalCoords[selectedDent] ?
+                  areaOriginalCoords[selectedDent].split(',') :
                   area.coords.split(',');
     const [x1, y1, x2, y2] = coords;
 
@@ -313,8 +313,8 @@ function markToothAsMissing(toothNumber) {
     overlay.addEventListener('click', function(e) {
         e.stopPropagation();
         const indexToRemove = soinsList.findIndex(item =>
-            item.dent === toothNumber && 
-            item.traitement === "Absente" && 
+            item.dent === toothNumber &&
+            item.traitement === "Absente" &&
             item.type_dent === activeDentType
         );
 
@@ -324,7 +324,7 @@ function markToothAsMissing(toothNumber) {
             updateTreatmentsTable();
 
             document.querySelectorAll(`[data-dent="${toothNumber}"][data-type-dent="${activeDentType}"]`).forEach(el => el.remove());
-            
+
             const areaToReactivate = document.querySelector(`#contenu-examination area[data-dent="${toothNumber}"]`);
             if (areaToReactivate) areaToReactivate.style.pointerEvents = 'auto';
         }
@@ -340,9 +340,9 @@ function markToothAsMissing(toothNumber) {
 
     soinsList.forEach(soin => {
         if (soin.traitement.includes("Prothèse") && soin.type_dent === activeDentType) {
-            const isAbsent = soinsList.some(item => 
-                item.dent === soin.dent && 
-                item.traitement === "Absente" && 
+            const isAbsent = soinsList.some(item =>
+                item.dent === soin.dent &&
+                item.traitement === "Absente" &&
                 item.type_dent === activeDentType
             );
 
@@ -358,15 +358,15 @@ function markToothAsMissing(toothNumber) {
                     rootOverlay.className = 'prothese-root-overlay';
                     rootOverlay.dataset.dent = toothNumber;
                     rootOverlay.dataset.typeDent = activeDentType;
-                    
+
                     const coords = areaOriginalCoords[toothNumber] ? areaOriginalCoords[toothNumber].split(',').map(Number) : area.coords.split(',').map(Number);
                     const [x1, y1, x2, y2] = coords;
-                    
+
                     // Ajustez ces valeurs pour contrôler la taille de l'overlay de racine
                     const rootWidth = x2 - x1;
                     const rootHeight = (y2 - y1) * 0.3; // 40% de la hauteur pour la racine
                     const rootX = x1;
-                    
+
                     // Positionnement différent pour les dents du haut et du bas
                     const toothNum = parseInt(toothNumber);
                     let rootY;
@@ -377,12 +377,12 @@ function markToothAsMissing(toothNumber) {
                         // Dent du bas - positionner en haut
                         rootY = y1;
                     }
-                    
+
                     rootOverlay.style.left = `${rootX}px`;
                     rootOverlay.style.top = `${rootY}px`;
                     rootOverlay.style.width = `${rootWidth}px`;
                     rootOverlay.style.height = `${rootHeight}px`;
-                    
+
                     const imageContainer = document.querySelector('#contenu-examination .image-container');
                     if (imageContainer) {
                         imageContainer.appendChild(rootOverlay);
@@ -393,21 +393,21 @@ function markToothAsMissing(toothNumber) {
                     dentOverlay.className = 'prothese-overlay';
                     dentOverlay.dataset.dent = toothNumber;
                     dentOverlay.dataset.typeDent = activeDentType;
-                    
+
                     const coords = areaOriginalCoords[toothNumber] ? areaOriginalCoords[toothNumber].split(',').map(Number) : area.coords.split(',').map(Number);
                     const [x1, y1, x2, y2] = coords;
-                    
+
                     dentOverlay.style.left = `${x1}px`;
                     dentOverlay.style.top = `${y1}px`;
                     dentOverlay.style.width = `${x2 - x1}px`;
                     dentOverlay.style.height = `${y2 - y1}px`;
-                    
+
                     const imageContainer = document.querySelector('#contenu-examination .image-container');
                     if (imageContainer) {
                         imageContainer.appendChild(dentOverlay);
                     }
                 }
-                
+
                 updateProtheseOverlayPosition(toothNumber);
             }
         }
@@ -416,22 +416,22 @@ function markToothAsMissing(toothNumber) {
 function updateAbsentOverlayPosition(toothNumber) {
     const overlay = document.querySelector(`.absent-overlay[data-dent="${toothNumber}"][data-type-dent="${activeDentType}"]`);
     const area = document.querySelector(`#contenu-examination area[data-dent="${toothNumber}"]`);
-    
+
     if (!overlay || !area || !areaOriginalCoords[toothNumber]) return;
 
     const coords = areaOriginalCoords[toothNumber].split(',').map(Number);
     const [x1, y1, x2, y2] = coords;
-    
+
     if (isZoomed) {
         const dentImage = document.getElementById('dentImage');
         if (!dentImage) return;
         const [originX, originY] = dentImage.style.transformOrigin.split(' ').map(parseFloat);
-        
+
         const newX1 = originX - (originX - x1) * currentZoom;
         const newY1 = originY - (originY - y1) * currentZoom;
         const newX2 = originX + (x2 - originX) * currentZoom;
         const newY2 = originY + (y2 - originY) * currentZoom;
-        
+
         overlay.style.left = `${newX1}px`;
         overlay.style.top = `${newY1}px`;
         overlay.style.width = `${newX2 - newX1}px`;
@@ -448,17 +448,17 @@ function updateAbsentOverlayPosition(toothNumber) {
  function updateProtheseOverlayPosition(toothNumber) {
     const overlays = document.querySelectorAll(`.prothese-overlay[data-dent="${toothNumber}"], .prothese-root-overlay[data-dent="${toothNumber}"]`);
     const area = document.querySelector(`#contenu-examination area[data-dent="${toothNumber}"]`);
-    
+
     if (!overlays.length || !area || !areaOriginalCoords[toothNumber]) return;
 
     const coords = areaOriginalCoords[toothNumber].split(',').map(Number);
     const [x1, y1, x2, y2] = coords;
-    
+
     if (isZoomed) {
         const dentImage = document.getElementById('dentImage');
         if (!dentImage) return;
         const [originX, originY] = dentImage.style.transformOrigin.split(' ').map(parseFloat);
-        
+
         const newX1 = originX - (originX - x1) * currentZoom;
         const newY1 = originY - (originY - y1) * currentZoom;
         const newX2 = originX + (x2 - originX) * currentZoom;
@@ -474,7 +474,7 @@ function updateAbsentOverlayPosition(toothNumber) {
                 const rootWidth = newX2 - newX1;
                 const rootHeight = (newY2 - newY1) * 0.3;
                 const rootX = newX1;
-                
+
                 const toothNum = parseInt(toothNumber);
                 let rootY;
                 if (toothNum >= 11 && toothNum <= 28) {
@@ -484,7 +484,7 @@ function updateAbsentOverlayPosition(toothNumber) {
                     // Dent du bas - positionner en haut
                     rootY = newY1;
                 }
-                
+
                 overlay.style.left = `${rootX}px`;
                 overlay.style.top = `${rootY}px`;
                 overlay.style.width = `${rootWidth}px`;
@@ -503,7 +503,7 @@ function updateAbsentOverlayPosition(toothNumber) {
                 const rootWidth = x2 - x1;
                 const rootHeight = (y2 - y1) * 0.3;
                 const rootX = x1;
-                
+
                 const toothNum = parseInt(toothNumber);
                 let rootY;
                 if (toothNum >= 11 && toothNum <= 28) {
@@ -513,7 +513,7 @@ function updateAbsentOverlayPosition(toothNumber) {
                     // Dent du bas - positionner en haut
                     rootY = y1;
                 }
-                
+
                 overlay.style.left = `${rootX}px`;
                 overlay.style.top = `${rootY}px`;
                 overlay.style.width = `${rootWidth}px`;
@@ -554,26 +554,26 @@ function updateTotal() {
 /* Gestion du zoom */
 function applyZoom(area) {
     if (isZoomed) return;
-    
+
     const coords = area.coords.split(',').map(Number);
     const [x1, y1, x2, y2] = coords;
     const centerX = (x1 + x2) / 2;
     const centerY = (y1 + y2) / 2;
-    
+
     currentZoom = ZOOM_LEVEL;
     isZoomed = true;
-    
+
     const dentImage = document.getElementById('dentImage');
     if (dentImage) {
         dentImage.style.transformOrigin = `${centerX}px ${centerY}px`;
         dentImage.style.transform = `scale(${ZOOM_LEVEL})`;
     }
-    
+
     updateHighlightPosition(area);
     document.getElementById('dentHighlight').style.display = 'block';
     updateAllAbsentOverlays();
     updateAllProtheseOverlays();
-    
+
     const dentMap = document.querySelector('map[name="dentMap"]');
     if (dentMap) dentMap.style.pointerEvents = 'none';
 }
@@ -587,12 +587,12 @@ function updateHighlightPosition(area) {
     if (dentImage && dentImage.style.transformOrigin) {
         [originX, originY] = dentImage.style.transformOrigin.split(' ').map(parseFloat);
     }
-    
+
     const newX1 = originX - (originX - x1) * scaleFactor;
     const newY1 = originY - (originY - y1) * scaleFactor;
     const newX2 = originX + (x2 - originX) * scaleFactor;
     const newY2 = originY + (y2 - originY) * scaleFactor;
-    
+
     const dentHighlight = document.getElementById('dentHighlight');
     if (dentHighlight) {
         dentHighlight.style.left = `${newX1}px`;
@@ -604,7 +604,7 @@ function updateHighlightPosition(area) {
 
 function resetZoom() {
     if (!isZoomed) return;
-    
+
     const dentImage = document.getElementById('dentImage');
     if (dentImage) {
         dentImage.style.transform = 'scale(1)';
@@ -636,7 +636,7 @@ function resizeMap() {
             area.coords = scaledCoords.join(',');
         }
     });
-    
+
     updateAllAbsentOverlays();
     updateAllProtheseOverlays();
 }
@@ -740,20 +740,20 @@ function handleRemoveTreatment(e) {
         const typeDent = soinToRemove.type_dent;
 
         soinsList.splice(originalIndex, 1);
-        
+
         if (soinToRemove.traitement === "Absente") {
-            soinsList = soinsList.filter(item => 
-                !(item.dent === toothNumber && 
-                  item.type_dent === typeDent && 
+            soinsList = soinsList.filter(item =>
+                !(item.dent === toothNumber &&
+                  item.type_dent === typeDent &&
                   item.traitement.includes("Prothèse"))
             );
         }
 
         document.querySelectorAll(`[data-dent="${toothNumber}"][data-type-dent="${typeDent}"]`).forEach(el => el.remove());
-        
+
         const area = document.querySelector(`#contenu-examination area[data-dent="${toothNumber}"]`);
         if (area) area.style.pointerEvents = 'auto';
-        
+
         saveTreatmentsToLocalStorage();
         updateTreatmentsTable();
     }
@@ -797,7 +797,7 @@ function handleGlobalKeydown(e) {
             markToothAsMissing(soin.dent);
         }
     });
-    
+
     checkProtheseOnMissingTeeth();
 } */
 function restoreMissingTeeth() {
